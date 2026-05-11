@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { AuthContext } from '../context/AuthContext';
 
 const HRDashboard = () => {
@@ -13,7 +13,7 @@ const HRDashboard = () => {
 
   const fetchCandidates = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/candidates', {
+      const { data } = await api.get('/api/candidates', {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setCandidates(data);

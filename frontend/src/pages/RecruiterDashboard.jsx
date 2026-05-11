@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { AuthContext } from '../context/AuthContext';
 
 const RecruiterDashboard = () => {
@@ -13,7 +13,7 @@ const RecruiterDashboard = () => {
 
   const fetchCandidates = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/candidates', {
+      const { data } = await api.get('/api/candidates', {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setCandidates(data);
@@ -24,7 +24,7 @@ const RecruiterDashboard = () => {
 
   const updateStatus = async (id, nextStatus) => {
     try {
-      await axios.put(`http://localhost:5000/api/candidates/${id}/status`, 
+      await api.put(`/api/candidates/${id}/status`, 
         { status: nextStatus },
         { headers: { Authorization: `Bearer ${user.token}` } }
       );

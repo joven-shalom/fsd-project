@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { AuthContext } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
@@ -16,7 +16,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('http://localhost:5000/api/auth/register', formData);
+      const { data } = await api.post('/api/auth/register', formData);
       login(data);
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed');
