@@ -30,13 +30,16 @@ const candidates = [
 
 const seedDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(process.env.MONGO_URI, {
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+    });
     await Candidate.deleteMany({});
     await Candidate.insertMany(candidates);
     console.log('Database Seeded Successfully');
     process.exit();
   } catch (error) {
-    console.error('Error seeding database:', error);
+    console.error('Error seeding database:', error.message);
     process.exit(1);
   }
 };
